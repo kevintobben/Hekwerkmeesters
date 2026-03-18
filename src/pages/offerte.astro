@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Offerte aanvragen" description="Vraag een vrijblijvende offerte aan bij Hekwerkmeesters.">
+<style>
+  .offerte-hero {
+    position: relative;
+    background: var(--black-deep);
+    padding: 64px 0;
+    overflow: hidden;
+  }
+  .offerte-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/spijlhekwerk.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.35);
+  }
+  .offerte-hero__inner { position: relative; }
+  .offerte-hero h1 {
+    font-size: clamp(26px, 4vw, 44px);
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .offerte-hero p { color: rgba(255,255,255,0.65); font-size: 15px; }
+
+  .offerte-section {
+    padding: 72px 0 96px;
+    background: var(--white-soft);
+  }
+
+  .form-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--cream-border);
+    border-radius: 14px;
+    padding: 52px 52px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .form-group { margin-bottom: 22px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black-deep);
+    margin-bottom: 6px;
+  }
+  .field-hint {
+    font-size: 12px;
+    color: var(--grey-body);
+    opacity: 0.65;
+    margin-bottom: 8px;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--cream-border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--black-deep);
+    background: var(--white-soft);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184,132,30,0.12);
+  }
+
+  .phone-input {
+    display: flex;
+    gap: 0;
+  }
+  .phone-prefix {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 14px;
+    background: var(--cream);
+    border: 1px solid var(--cream-border);
+    border-right: none;
+    border-radius: var(--radius) 0 0 var(--radius);
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--black-deep);
+  }
+  .phone-input input {
+    border-radius: 0 var(--radius) var(--radius) 0;
+    flex: 1;
+  }
+
+  /* Checkbox grid */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--cream-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 14px;
+    color: var(--black-deep);
+  }
+  .checkbox-item:has(input:checked) {
+    border-color: var(--gold);
+    background: rgba(184,132,30,0.06);
+  }
+  .checkbox-item input[type=checkbox] {
+    width: 16px; height: 16px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  /* Radio grid */
+  .radio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--cream-border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 14px;
+    color: var(--black-deep);
+  }
+  .radio-item:has(input:checked) {
+    border-color: var(--gold);
+    background: rgba(184,132,30,0.06);
+  }
+  .radio-item input[type=radio] {
+    width: 16px; height: 16px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  textarea { min-height: 110px; resize: vertical; }
+
+  .form-divider {
+    border: none;
+    border-top: 1px solid var(--cream-border);
+    margin: 32px 0;
+  }
+
+  .submit-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .btn-submit {
+    min-width: 180px;
+    padding: 15px 32px;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    .form-card { padding: 28px 20px; }
+    .checkbox-grid, .radio-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- Hero -->
+<section class="offerte-hero">
+  <div class="container">
+    <div class="offerte-hero__inner">
+      <h1>Vrijblijvende offerte aanvraag</h1>
+      <p>Vul het formulier in en wij nemen zo snel mogelijk contact met u op.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Offerte formulier -->
+<section class="offerte-section">
+  <div class="container">
+    <div class="form-card">
+      <form method="POST" action="/api/offerte">
+
+        <!-- Naam -->
+        <div class="form-group">
+          <label for="naam">Naam <span style="color:var(--gold)">*</span></label>
+          <p class="field-hint">Voer uw volledige naam in</p>
+          <input type="text" id="naam" name="naam" required />
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">E-mailadres <span style="color:var(--gold)">*</span></label>
+          <p class="field-hint">Voer uw e-mailadres in waarop wij u kunnen bereiken</p>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <!-- Telefoon -->
+        <div class="form-group">
+          <label for="tel">Telefoonnummer <span style="color:var(--gold)">*</span></label>
+          <div class="phone-input">
+            <span class="phone-prefix">🇳🇱 +31</span>
+            <input type="tel" id="tel" name="telefoon" required />
+          </div>
+        </div>
+
+        <!-- Woonplaats -->
+        <div class="form-group">
+          <label for="woonplaats">Woonplaats <span style="color:var(--gold)">*</span></label>
+          <input type="text" id="woonplaats" name="woonplaats" required />
+        </div>
+
+        <!-- Adres -->
+        <div class="form-group">
+          <label for="adres">Adres <span style="color:var(--gold)">*</span></label>
+          <input type="text" id="adres" name="adres" required />
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- Type hekwerk -->
+        <div class="form-group">
+          <label>Type hekwerk <span style="color:var(--gold)">*</span></label>
+          <p class="field-hint">Kies het gewenste type hekwerk</p>
+          <div class="checkbox-grid">
+            {['Gaashekwerk', 'Dubbelstaafmat', 'Spijlhekwerk', 'Sierpoort', 'Schuifpoort', 'Draaipoort', 'Sierhekwerk', 'Dubbelstaafmat met privacystrook'].map(t => (
+              <label class="checkbox-item">
+                <input type="checkbox" name="type[]" value={t} />
+                {t}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Opmerkingen -->
+        <div class="form-group">
+          <label for="opmerkingen">Opmerkingen <span style="color:var(--gold)">*</span></label>
+          <p class="field-hint">Aantal meters, hoeken/eind?, doorgang eventuele poort,</p>
+          <textarea id="opmerkingen" name="opmerkingen" required></textarea>
+        </div>
+
+        <!-- Hoogte -->
+        <div class="form-group">
+          <label for="hoogte">Gewenste hoogte: <span style="color:var(--gold)">*</span></label>
+          <input type="text" id="hoogte" name="hoogte" placeholder="bijv. 1.80 m" required />
+        </div>
+
+        <!-- Kleur -->
+        <div class="form-group">
+          <label>Gewenste kleur: <span style="color:var(--gold)">*</span></label>
+          <div class="radio-grid">
+            {['RAL9005 Zwart', 'RAL6009 Groen', 'RAL7016 Antraciet', 'Verzinkt'].map(k => (
+              <label class="radio-item">
+                <input type="radio" name="kleur" value={k} required />
+                {k}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-gold btn-submit">Indienen</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+</Layout>

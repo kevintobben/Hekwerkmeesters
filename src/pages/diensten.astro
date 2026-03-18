@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const diensten = [
+  {
+    num: '01.',
+    title: 'Gaashekwerk',
+    img: '/gaashekwerk.jpeg',
+    beschrijving: 'Bij Hekwerkmeesters bieden wij gaashekwerk dat zowel duurzaam als functioneel is. Ideaal voor tuinen, scholen en bedrijfspercelen, ons gaashekwerk zorgt voor een veilige omheining zonder afbreuk te doen aan het uitzicht.',
+    punten: ['Hoge kwaliteit materiaal', 'Makkelijke installatie bij hoogte verschillen', 'Onderhoudsservice en reparaties'],
+  },
+  {
+    num: '02.',
+    title: 'Dubbelstaafmat hekwerk',
+    img: '/dubbelstaaf_hekwerk.jpeg',
+    beschrijving: 'Onze dubbelstaafmat hekwerken zijn perfect voor het beveiligen van uw terrein. Sterk en visueel aantrekkelijk, deze hekwerken bieden uitstekende bescherming en zijn geschikt voor zowel industriële als particuliere toepassingen.',
+    punten: ['Diverse configuraties beschikbaar', 'Snelle en efficiënte installatie', 'Uitvoerbaar met vierkante staanders met vlechband voor privacy', 'Verschillende kleurkeuzes: RAL9005, RAL6009 en RAL7016'],
+  },
+  {
+    num: '03.',
+    title: 'Spijlhekwerk',
+    img: '/spijlhekwerk.png',
+    beschrijving: 'Zoekt u een hek dat veiligheid combineert met een open, moderne uitstraling? Ons spijlhekwerk is uitermate geschikt voor tuinen, bedrijfsterreinen en openbare ruimtes. Het hekwerk is vervaardigd uit verzinkt staal en afgewerkt met een duurzame poedercoating. Verkrijgbaar in hoogtes tot 2 meter.',
+    punten: ['Op maat gemaakt', 'Diverse afwerkingen beschikbaar', 'Duurzame materialen', 'Verschillende kleurkeuzes: RAL9005, RAL6009 en RAL7016'],
+  },
+  {
+    num: '04.',
+    title: 'Draaipoort',
+    img: '/draaipoort.jpeg',
+    beschrijving: 'Zoekt u een veilige draaipoort met een moderne uitstraling? Onze draaipoort van dubbelstaafmat is ideaal voor tuinen, bedrijfsterreinen en openbare ruimtes. Gemaakt van verzinkt staal en afgewerkt met een duurzame poedercoating, is de poort sterk, onderhoudsarm en bestand tegen alle weersinvloeden.',
+    punten: ['Op maat gemaakt', 'Diverse afwerkingen beschikbaar', 'Onderhoudsvrij', 'Verschillende kleurkeuzes: RAL9005, RAL6009 en RAL7016'],
+  },
+];
+---
+<Layout title="Diensten" description="Bekijk alle hekwerkdiensten van Hekwerkmeesters: gaashekwerk, dubbelstaafmat, spijlhekwerk en draaipoorten.">
+<style>
+  .page-hero {
+    position: relative;
+    background: var(--black-deep);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/hero_bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.3);
+  }
+  .page-hero__inner { position: relative; }
+  .page-hero h1 { color: var(--white); font-size: clamp(28px, 4vw, 48px); }
+
+  .diensten-section { padding: 96px 0; background: var(--white-soft); }
+
+  .dienst {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    padding-bottom: 72px;
+    margin-bottom: 72px;
+    border-bottom: 1px solid var(--cream-border);
+  }
+  .dienst:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .dienst:nth-child(even) { direction: rtl; }
+  .dienst:nth-child(even) > * { direction: ltr; }
+
+  .dienst__img {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--cream);
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+  }
+  .dienst__img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .dienst__num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .dienst__title {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 28px);
+    color: var(--black-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .dienst__desc { font-size: 15px; line-height: 1.75; margin-bottom: 20px; }
+
+  .dienst__list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .dienst__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .dienst__list li::before {
+    content: '►';
+    color: var(--gold);
+    font-size: 10px;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .dienst { grid-template-columns: 1fr; direction: ltr !important; }
+    .dienst:nth-child(even) { direction: ltr; }
+  }
+</style>
+
+<!-- Page hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__inner">
+      <h1>Onze diensten</h1>
+    </div>
+  </div>
+</section>
+
+<!-- Diensten lijst -->
+<section class="diensten-section">
+  <div class="container">
+    {diensten.map((d) => (
+      <article class="dienst">
+        <div class="dienst__img">
+          {d.img ? <img src={d.img} alt={d.title} /> : '🏗️'}
+        </div>
+        <div class="dienst__content">
+          <p class="dienst__num">{d.num}</p>
+          <h2 class="dienst__title">{d.title}</h2>
+          <p class="dienst__desc">{d.beschrijving}</p>
+          <ul class="dienst__list">
+            {d.punten.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <span class="section-label">Benieuwd naar de prijs?</span>
+      <h2>Neem nu contact met ons op voor een<br />vrijblijvende offerte</h2>
+      <a href="/offerte" class="btn btn-gold">Vraag een offerte aan</a>
+    </div>
+  </div>
+</div>
+
+</Layout>

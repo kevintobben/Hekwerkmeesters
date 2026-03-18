@@ -1,0 +1,210 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Contact" description="Neem contact op met Hekwerkmeesters voor al uw vragen of een vrijblijvende offerte.">
+<style>
+  .page-hero {
+    position: relative;
+    background: var(--black-deep);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/hero_bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.3);
+  }
+  .page-hero__inner { position: relative; }
+  .page-hero h1 { color: var(--white); font-size: clamp(28px, 4vw, 48px); }
+
+  .contact-section {
+    padding: 96px 0;
+    background: var(--white-soft);
+  }
+
+  .reach-title {
+    text-align: center;
+    font-size: clamp(20px, 2.5vw, 30px);
+    margin-bottom: 48px;
+  }
+
+  .reach-grid {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+  }
+  .reach-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .reach-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .reach-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .reach-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black-deep);
+  }
+  .reach-value a { color: inherit; }
+  .reach-social { display: flex; gap: 12px; margin-top: 4px; }
+  .reach-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    background: var(--cream-border);
+    color: var(--black-deep);
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .reach-social a:hover { background: var(--gold); color: var(--white); }
+
+  /* Form */
+  .form-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--cream-border);
+    border-radius: 12px;
+    padding: 48px;
+    box-shadow: var(--shadow);
+  }
+  .form-wrap h2 {
+    font-size: clamp(20px, 2.5vw, 28px);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .form-group { margin-bottom: 20px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black-deep);
+    margin-bottom: 6px;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--cream-border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--black-deep);
+    background: var(--white-soft);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184,132,30,0.12);
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  .form-submit { width: 100%; margin-top: 8px; font-size: 15px; padding: 15px; }
+
+  @media (max-width: 600px) {
+    .form-wrap { padding: 28px 20px; }
+  }
+</style>
+
+<!-- Page hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__inner">
+      <h1>Neem contact op!</h1>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="container">
+
+    <!-- Bereikbaar -->
+    <h2 class="reach-title">Hoe u ons het beste kunt bereiken</h2>
+    <div class="reach-grid">
+      <div class="reach-item">
+        <div class="reach-icon">📞</div>
+        <span class="reach-label">Whatsapp of bellen</span>
+        <span class="reach-value"><a href="tel:0640116418">0640116418</a></span>
+      </div>
+      <div class="reach-item">
+        <div class="reach-icon">✉️</div>
+        <span class="reach-label">E-mail</span>
+        <span class="reach-value"><a href="mailto:info@hekwerkmeesters.nl">info@hekwerkmeesters</a></span>
+      </div>
+      <div class="reach-item">
+        <div class="reach-icon">👥</div>
+        <span class="reach-label">Volg ons</span>
+        <div class="reach-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">📷</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contactformulier -->
+    <div class="form-wrap">
+      <h2>Stuur een bericht.</h2>
+      <form method="POST" action="/api/contact">
+        <div class="form-group">
+          <label for="naam">Volledige naam *</label>
+          <input type="text" id="naam" name="naam" required />
+        </div>
+        <div class="form-group">
+          <label for="tel">Telefoonnummer waarop we u kunnen bereiken. *</label>
+          <input type="tel" id="tel" name="telefoon" placeholder="+31" required />
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="bericht">Uw bericht of vraag. *</label>
+          <textarea id="bericht" name="bericht" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold form-submit">Stuur bericht</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <span class="section-label">Benieuwd naar de prijs?</span>
+      <h2>Neem nu contact met ons op voor een<br />vrijblijvende offerte</h2>
+      <a href="/offerte" class="btn btn-gold">Vraag een offerte aan</a>
+    </div>
+  </div>
+</div>
+
+</Layout>

@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Over ons" description="Leer meer over Hekwerkmeesters – jarenlange expertise in hoogwaardige hekwerkoplossingen.">
+<style>
+  .page-hero {
+    position: relative;
+    background: var(--black-deep);
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/hero_bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.3);
+  }
+  .page-hero__inner { position: relative; }
+  .page-hero h1 {
+    color: var(--white);
+    font-size: clamp(28px, 4vw, 48px);
+  }
+
+  .intro-section {
+    padding: 96px 0;
+    background: var(--cream);
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .intro-logo-wrap img { max-width: 350px; margin: 0 auto; }
+  .intro-content h2 { font-size: clamp(22px, 3vw, 34px); margin-bottom: 20px; }
+  .intro-content p { font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+
+  .values-section {
+    padding: 96px 0;
+    background: var(--white-soft);
+  }
+  .values-header { text-align: center; margin-bottom: 56px; }
+  .values-header h2 { font-size: clamp(22px, 3vw, 34px); margin-bottom: 10px; }
+  .values-header p { max-width: 580px; margin: 0 auto; font-size: 15px; }
+
+  .values-img {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-lg);
+    background: var(--cream);
+    min-height: 220px;
+  }
+
+  .values-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .value-item h3 { font-size: 17px; margin-bottom: 10px; }
+  .value-item p  { font-size: 14px; line-height: 1.65; }
+
+  @media (max-width: 768px) {
+    .intro-grid  { grid-template-columns: 1fr; }
+    .values-cols { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- Page hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__inner">
+      <h1>Hekwerkmeesters</h1>
+    </div>
+  </div>
+</section>
+
+<!-- Intro -->
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-logo-wrap">
+        <img src="/logo.png" alt="Hekwerkmeesters logo" />
+      </div>
+      <div class="intro-content">
+        <span class="section-label">Over ons</span>
+        <h2>Onze Passie en Expertise</h2>
+        <p>Hekwerkmeesters is uw partner in hoogwaardige hekwerkoplossingen, met een breed scala aan producten voor zowel particulieren als bedrijven. Onze focus ligt op vakmanschap en klanttevredenheid, met elke installatie opnieuw.</p>
+        <p>Hekwerkmeesters is opgericht door een ervaren professional met een passie voor hekwerk, die besloot zijn expertise te bundelen en hoogwaardige oplossingen te bieden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Waarden -->
+<section class="values-section">
+  <div class="container">
+    <div class="values-header">
+      <span class="section-label">Onze waarden</span>
+      <h2>Wat ons drijft: Kwaliteit, Klantgerichtheid en Innovatie</h2>
+    </div>
+
+    <div class="values-cols">
+      <div class="value-item">
+        <h3>Kwaliteit</h3>
+        <p>Wij streven naar de hoogste kwaliteit in al onze producten en diensten, zodat elk project aan de verwachtingen van onze klanten voldoet.</p>
+      </div>
+      <div class="value-item">
+        <h3>Klantgerichtheid</h3>
+        <p>De tevredenheid van onze klanten staat voorop. We luisteren naar hun behoeften en zijn pas tevreden als zij dat zijn.</p>
+      </div>
+      <div class="value-item">
+        <h3>Innovatie</h3>
+        <p>We blijven voortdurend innoveren en onze technieken verbeteren, zodat we de beste en meest duurzame hekwerkoplossingen kunnen bieden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <span class="section-label">Benieuwd naar de prijs?</span>
+      <h2>Neem nu contact met ons op voor een<br />vrijblijvende offerte</h2>
+      <a href="/offerte" class="btn btn-gold">Vraag een offerte aan</a>
+    </div>
+  </div>
+</div>
+
+</Layout>
